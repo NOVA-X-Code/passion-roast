@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Passion Roast — The AI Passion Judge</title>
+<style>
+  :root {
+    --bg: #100c1a;
+    --panel: #1b1630;
+    --accent-a: #ff5e8a;
+    --accent-b: #ffb347;
+    --text: #f6f3ff;
+    --muted: #a49bc9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: radial-gradient(circle at top, #241c3d, var(--bg));
+    color: var(--text);
+    min-height: 100vh;
+  }
+  header { text-align: center; padding: 32px 16px 10px; }
+  header h1 { margin: 0; font-size: 2.1rem; }
+  header p { color: var(--muted); margin-top: 8px; }
+
+  main {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 10px 16px 60px;
+  }
+
+  .card {
+    background: var(--panel);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 0 0 1px #2c2450;
+    margin-bottom: 20px;
+  }
+
+  label { display: block; font-weight: 600; margin-bottom: 8px; }
+  input[type="text"] {
+    width: 100%;
+    background: #100c1a;
+    border: 1px solid #352a5c;
+    color: var(--text);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 1rem;
+    margin-bottom: 18px;
+  }
+
+  .dropzone {
+    border: 2px dashed #453a75;
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--muted);
+    margin-bottom: 18px;
+    transition: border-color 0.2s;
+  }
+  .dropzone.dragover { border-color: var(--accent-a); color: var(--text); }
+  .dropzone img { max-width: 100%; max-height: 220px; border-radius: 10px; margin-top: 12px; }
+
+  button {
+    width: 100%;
+    background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+    border: none;
+    color: #100c1a;
+    font-weight: 800;
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.05rem;
+  }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .status { text-align: center; color: var(--muted); margin-top: 10px; min-height: 20px; font-size: 0.9rem; }
+  .status.error { color: var(--accent-a); }
+
+  .result { display: none; }
+  .result.visible { display: block; }
+  .score-wrap { text-align: center; margin-bottom: 16px; }
+  .score { font-size: 3.2rem; font-weight: 900; background: linear-gradient(90deg, var(--accent-a), var(--accent-b)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .score-label { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+  .diploma { text-align: center; font-size: 1.15rem; font-weight: 700; margin-bottom: 14px; padding: 10px; border: 1px solid #453a75; border-radius: 10px; }
+  .roast { font-size: 1.05rem; line-height: 1.6; margin-bottom: 12px; }
+  .verdict { color: var(--muted); font-style: italic; }
+
+  footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding-bottom: 30px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔥 Passion Roast</h1>
+  <p>Show the AI Passion Judge what you love. It will judge you accordingly.</p>
+</header>
+
+<main>
+  <div class="card">
+    <label for="passionName">What's your passion?</label>
+    <input type="text" id="passionName" placeholder="e.g. My vinyl record collection" />
+
+    <label>Show us the evidence</label>
+    <div class="dropzone" id="dropzone">
+      <span id="dropzoneText">Click or drag a photo here</span>
+      <img id="preview" style="display:none" />
+    </div>
+    <input type="file" id="fileInput" accept="image/*" style="display:none" />
+
+    <button id="submitBtn" disabled>Judge My Passion</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="card result" id="resultCard">
+    <div class="score-wrap">
+      <div class="score" id="scoreValue">--</div>
+      <div class="score-label">Passion Score / 100</div>
+    </div>
+    <div class="diploma" id="diplomaTitle"></div>
+    <div class="roast" id="roastText"></div>
+    <div class="verdict" id="verdictText"></div>
+  </div>
+</main>
+
+<footer>Powered entirely by Google Gemini (multimodal). Built for the DEV Weekend Challenge: Passion Edition.</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
